@@ -70,6 +70,8 @@ repeat {
                     let grade = String(info[2])
                     if !students.keys.contains(name) {
                         print("\(name) 학생을 찾지 못했습니다.")
+                    } else if !score.keys.contains(grade){
+                        print("입력이 잘못되었습니다. 다시 확인해주세요.")
                     } else {
                         let grades = students[name]!
                         if grades.keys.contains(subject) {
@@ -128,7 +130,14 @@ repeat {
                             print("\(g.key): \(g.value)")
                             sum += score[g.value]!
                         }
-                        print("평점 : \(sum/Double(grades.count))")
+                        let avg = sum/Double(grades.count)
+                        if avg.remainder(dividingBy: 1)==0 {
+                            print("평점 : \(Int(avg))")
+                        } else if (avg*10).remainder(dividingBy: 1)==0 {
+                            print("평점 : \(String(format: "%.1f", avg))")
+                        } else {
+                            print("평점 : \(String(format: "%.2f", avg))")
+                        }
                     }
                 }
             }
@@ -140,3 +149,5 @@ repeat {
     }
     
 } while menu != "X"
+
+print("프로그램을 종료합니다...")
